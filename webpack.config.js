@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack'); // only add this if you don't have yet
+// replace accordingly './.env' with the path of your .env file 
+require('dotenv').config({ path: './.env' }); 
 
 module.exports = {
    entry: './main.js',
@@ -11,7 +14,14 @@ module.exports = {
    devServer: {
       // inline: true,
       historyApiFallback: true,
-      port: 8001
+      port: 8001,
+      proxy: {
+         '/api': {
+              target: 'http://localhost:8001',
+              router: () => 'http://localhost:4001',
+              logLevel: 'debug' /*optional*/
+         }
+      }
    },
    module: {
       rules: [
@@ -29,6 +39,9 @@ module.exports = {
    plugins:[
       new HtmlWebpackPlugin({
          template: './index.html'
-      })
-   ]
+      }),
+      new webpack.DefinePlugin({
+         "process.env": JSON.stringify(process.env),
+       }),
+   ],
 }

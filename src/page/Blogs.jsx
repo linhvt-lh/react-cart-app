@@ -6,6 +6,7 @@ export default function Blogs(){
     return <>
         <Navigation/>
         <h2>THIS IS bLOGS PAGE</h2>
+        
         <BlogsCom></BlogsCom>
     </>
 }

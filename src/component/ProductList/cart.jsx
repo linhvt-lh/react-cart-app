@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { List,Avatar, InputNumber, Card, Row, Col, Button } from 'antd';
+import { List,Avatar, InputNumber } from 'antd';
 import {ProductStyled} from './styled.jsx';
 
 
@@ -28,21 +28,28 @@ export default function Products({productsData, quantityChange}){
    
     return <>
         <ProductStyled>
-            <h2>Product List</h2>
-            <Row gutter={[16, 16]}>
-                {products.map( ( product,index) => {
-                    return  <>
-                    <Col span={6}>
-                        <Card title={product.name}>
-                            <Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />
-                            <p>{product.price}$</p>
-                            <Button>Add To Cart</Button>
-                        </Card>
-                    </Col>
-                    </>
+            <List
+                itemLayout="horizontal"
+                dataSource={products}
+                renderItem={(item, index) => (
+                <List.Item>
+                    <List.Item.Meta
+                    avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
+                    title={<a href="https://ant.design">{item.name}</a>}
+                
+                    />
+                    <div className='list-col'>
+                        <span className='list-label'>Quantity</span>
+                        <InputNumber value={item.quantity} onChange={(value) => {quantityChange(item._id,value)}}></InputNumber>
+                    </div>
+                    <div className='list-col'>
+                        <span className='list-label'>Price</span>
+                        <span>{item.price}{"$"}</span>
+                    </div>
                     
-                }) }
-            </Row>
+                </List.Item>
+                )}
+            />
         </ProductStyled>
     </>
    }

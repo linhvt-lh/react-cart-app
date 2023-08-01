@@ -1,7 +1,11 @@
 import React from "react";
 import {Layout, Menu, MenuProps  } from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, SettingOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import {HeaderStyle} from './styled.js';
+import CartWidget from '../component/Cart/CartWidget.jsx';
+import { useSelector } from 'react-redux';
 const { Header} = Layout;
+
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -21,15 +25,22 @@ const items = [
     ]),
   ];
 
+
+
 export default function CustomHeader() {
-    return <>
-    <Header style={{ display: 'flex', alignItems: 'center' }}>
-    <div className="demo-logo" />
-    <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['2']}
-        items={items}
-    />
-</Header></>
+   
+    return <HeaderStyle>
+      <Header style={{ display: 'flex', alignItems: 'center',justifyContent: "space-between" }}>
+      <div className="demo-logo" />
+      <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['2']}
+          items={items}
+      />
+      <CartWidget/>
+
+
+    </Header>
+  </HeaderStyle>
 }

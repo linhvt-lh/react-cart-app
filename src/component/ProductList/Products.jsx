@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { List,Avatar, InputNumber, Card, Row, Col, Button } from 'antd';
 import {ProductStyled} from './styled.jsx';
+import {addToCart} from '../../slices/CartReducer.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-export default function Products({productsData, quantityChange}){
-   
+export default function Products(){
+    console.log('re-render');
+    const a = useSelector(state => state.cart.totalPrice) ;
+    const dispatch = useDispatch();
     const [products, setProducts] = useState(null);
-
+  
+    // fetch Data
     useEffect(()=>{
         const baseURL = '/api/products';
-        const token  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRjNzYxNjdkNDc5NWQzOTM2OThlNDVkIiwiZW1haWwiOiJsaW5oQGdtYWlsLmNvbSIsImlhdCI6MTY5MDgxODczOCwiZXhwIjoxNjkwODI1OTM4fQ.KqSGbCKbmbZTNzJTeYicMu_FJtsAq4PR279g78QF-Gk';
+        const token  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRjNzYxNjdkNDc5NWQzOTM2OThlNDVkIiwiZW1haWwiOiJsaW5oQGdtYWlsLmNvbSIsImlhdCI6MTY5MDg3MzEzOCwiZXhwIjoxNjkwODgwMzM4fQ.zdVQt8rXUcl0lTDqHsjFZ1S_I3rVrkYFcQEnOsQF-5I';
         fetch( baseURL, {
                 method:'GET',
                 headers:{
@@ -28,18 +33,16 @@ export default function Products({productsData, quantityChange}){
    
     return <>
         <ProductStyled>
-            <h2>Product List</h2>
+            <h2>Product List { a}</h2>
             <Row gutter={[16, 16]}>
                 {products.map( ( product,index) => {
-                    return  <>
-                    <Col span={6}>
+                    return <Col key={product._id} span={6}>
                         <Card title={product.name}>
                             <Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />
                             <p>{product.price}$</p>
-                            <Button>Add To Cart</Button>
+                            <Button onClick={() => dispatch(addToCart(product))}>Add To Cart</Button>
                         </Card>
                     </Col>
-                    </>
                     
                 }) }
             </Row>

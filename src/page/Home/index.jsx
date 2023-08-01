@@ -15,19 +15,13 @@ export default function Home(){
         <CustomHeader />
         <HomeWrapperStyle>
           <Content style={{ padding: '0 50px' }}>
-            <Products />
-            {/* <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb> */}
             <div className="site-layout-content" >
-              Content
+              <Products />
             </div>
           </Content>
         </HomeWrapperStyle>
        
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>©2023 Created by Linh Vu</Footer>
     </Layout>
   </>
 }

@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
-import {Row, Col} from 'antd';
-import {CartInfoStyle} from './styled.jsx';
-import {CartContext} from '../../page/Cart.jsx';
+import React, { useContext } from "react";
+import { Row, Col } from 'antd';
+import { CartInfoStyle } from './styled.jsx';
+import { CartContext } from '../../page/Cart.jsx';
 
 
-export default function CartInfo({isLoading,promotions}){
+export default function CartInfo({isLoading, promotions}){
 
     const cartTotal = useContext(CartContext);
 

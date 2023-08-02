@@ -3,7 +3,7 @@ import {ButtonStyled} from './styled.jsx';
 
 export default function Button(props){
    
-    const {btnType, children, ...rest} = props;
+    const { btnType, children, ...rest} = props;
 
     return <ButtonStyled 
             btnType={btnType}

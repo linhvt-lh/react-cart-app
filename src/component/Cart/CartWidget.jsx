@@ -1,7 +1,7 @@
 import React from "react";
-import {ShoppingCartOutlined} from '@ant-design/icons';
-import {useSelector} from "react-redux";
-import {Link} from 'react-router-dom';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
 export default function CartWidget(){
   const cartData = useSelector(state => state.cart.items) ;

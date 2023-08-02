@@ -1,6 +1,5 @@
 import Style from 'styled-components';
 
-
 export const BlogStyle = Style.div`
     .blog-list .edit{
         padding-left : 10px;

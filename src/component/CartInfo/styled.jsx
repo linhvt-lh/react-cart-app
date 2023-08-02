@@ -1,6 +1,5 @@
 import Styled from 'styled-components';
 
-
 export const CartInfoStyle = Styled.div`
     color : #000;
     .shipping-info{

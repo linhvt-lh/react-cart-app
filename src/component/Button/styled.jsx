@@ -1,5 +1,5 @@
 import Styled from 'styled-components';
-import {Button} from 'antd';
+import { Button } from 'antd';
 
 const btnType  = (btnType) =>{
     if(btnType === 'black'){

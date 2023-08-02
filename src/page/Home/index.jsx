@@ -10,7 +10,6 @@ import Products from "../../component/ProductList/Products.jsx";
 
 export default function Home(){
   return <>
-
       <Layout className="layout">
         <CustomHeader />
         <HomeWrapperStyle>
@@ -20,7 +19,6 @@ export default function Home(){
             </div>
           </Content>
         </HomeWrapperStyle>
-       
         <Footer style={{ textAlign: 'center' }}>©2023 Created by Linh Vu</Footer>
     </Layout>
   </>

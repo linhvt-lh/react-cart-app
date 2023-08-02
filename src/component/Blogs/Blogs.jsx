@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {BlogStyle} from './styled.js';
-import fetchApiDataAction from '../../fetchApi.jsx';
+import { BlogStyle } from './styled.js';
 import { Input, Button } from "antd";
 
 export default function BlogsCom(){
@@ -11,7 +10,7 @@ export default function BlogsCom(){
     const [addPost, setAddPost] = useState(null);
     const [blogs, setBlogs] = useState(null);
     
-    useEffect(()=>{
+    useEffect( () => {
         const blogURL = `${apiBaseUrl}posts/?pageSize=10`;
         fetch(blogURL, {
             method : 'GET',
@@ -26,7 +25,7 @@ export default function BlogsCom(){
             console.log('Can not get blogs data' + err.message);
         });
        
-    },[addPost])
+    }, [addPost])
    
 
     function handleEdit(postId){
@@ -35,8 +34,7 @@ export default function BlogsCom(){
     
     function handleSave(postID, userId){
         const url = `${apiBaseUrl}posts/${postID}`;
-    
-        fetch(url,{
+        fetch(url, {
             method : 'PUT',
             body : JSON.stringify({
                 id: postID,
@@ -50,7 +48,6 @@ export default function BlogsCom(){
             if(response.status === 200){
                 setEditId(0);
             }
- 
         })
     }
 
@@ -63,7 +60,6 @@ export default function BlogsCom(){
     }
 
     function handleAddPost(e){
-       
         e.preventDefault();
         const data = new FormData(e.target);
         const title = data.get('title');
@@ -95,20 +91,19 @@ export default function BlogsCom(){
                 <Input name="title" placeholder="Title"></Input>
                 <Input type="number" name="userId" placeholder="userId"></Input>
                 <button type="submit">Add</button>
-            </form>}
+            </form>
+        }
         <ul className="blog-list">
-            {blogs && blogs.map((post) => {
+            { blogs && blogs.map((post) => {
                 return <>
                     <li key={post.id + post.userId}>
                     { editId === post.id ? 
-                        <><input className="post-title" onChange={(e) => handleInputChange(e)}  /><a onClick={(e) =>{handleSave(post.id,post.userId)}} className="edit">Save</a></> : 
+                        <><input className="post-title" onChange={(e) => handleInputChange(e)}  /><a onClick={(e) =>{handleSave(post.id, post.userId)}} className="edit">Save</a></> : 
                         <><input className="post-title" readOnly value={post.title} /><a onClick={(e) =>{handleEdit(post.id)}} className="edit">Edit</a></>
                     }
-                  
                     </li>
-                </>
-                
-            })}
+                </>  
+            }) }
         </ul>
     </BlogStyle>
 }

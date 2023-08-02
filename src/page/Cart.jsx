@@ -6,9 +6,8 @@ import Promotion from '../component/Promotion/Promotion.jsx';
 import CartInFo from '../component/CartInfo/CartInfo.jsx';
 import Button from '../component/Button/Button.jsx';
 import Blogs from '../component/Blogs/Blogs.jsx';
-import Users from '../component/Users/User.jsx';
-import {CartPageStyle} from './styled.jsx';
-import {productDataSaved, promotionsOriginal} from '../sample/sampleData.js';
+import { CartPageStyle } from './styled.jsx';
+
 
 const CartContext = createContext(0);
 
@@ -24,7 +23,6 @@ export default function CartPage(){
         discount : 0
     });    
     
-   
     // change quantity
     function handleChangeQuantity(pId, qty){
         const newProductData = productData.map((product)=>{
@@ -38,12 +36,11 @@ export default function CartPage(){
 
     //change promotion
     function promotionSubmit(promoCode){
-       
         let discount = 0;
         let newPromotionsData =  promotionsOriginal.map((promo) => {
             if(promo.code === promoCode.toUpperCase() && promo.used === false ){
                 discount = cartTotal * (promo.discount / 100);
-                return {...promo,used:true}
+                return {...promo, used:true}
             }
             return promo;
         });
@@ -54,12 +51,10 @@ export default function CartPage(){
         }else{
             setPromotion({status:500});
         }
-        
     }
 
     // fetch data
     function fetchApiDataAction(url, successAction, method = 'GET'){
-       
         fetch(url, {
             method : method,
         })
@@ -75,7 +70,7 @@ export default function CartPage(){
     }
     
     //calculate cart total
-    useEffect(()=>{
+    useEffect(() => {
         let total = shipCost ? shipCost : 0;
         for(let product of productData){
             total += (product.price) * product.qty;
@@ -85,41 +80,39 @@ export default function CartPage(){
         }
         setCartTotal(total);
         
-    },[productData, promotions]);
+    }, [productData, promotions]);
 
 
     //cart loading
-    let isLoading = false;
-    if(cartTotal === 0){
-        isLoading = true;
-    }
+    const isLoading = cartTotal === 0;
 
-    return  <CartContext.Provider value={cartTotal}>
-                <Navigation />
-                <CartPageStyle>
-                   
-                    <Row gutter={48}>
-                        <Col span={16}>
-                            <h2>Product List</h2>
-                            <Products productsData={productData} quantityChange={handleChangeQuantity}></Products>
-                        </Col>
-                        <Col span={8}>
-                            <Promotion onClick={promotionSubmit} promotions={promotions} ></Promotion>
-                            <CartInFo promotions={promotions} isLoading={isLoading} cartTotal={cartTotal}></CartInFo>
-                            <div className="go-checkout">
-                                <Button btnType="yellow" type="primary">Checkout</Button>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <h2>Blogs</h2>
-                            <Blogs></Blogs>
-                        </Col>
-                    </Row>
-                </CartPageStyle>   
-               
-            </CartContext.Provider>
+    return <>
+        <CartContext.Provider value={cartTotal}>
+            <Navigation />
+            <CartPageStyle>
+                <Row gutter={48}>
+                    <Col span={16}>
+                        <h2>Product List</h2>
+                        <Products productsData={productData} quantityChange={handleChangeQuantity}></Products>
+                    </Col>
+                    <Col span={8}>
+                        <Promotion onClick={promotionSubmit} promotions={promotions} ></Promotion>
+                        <CartInFo promotions={promotions} isLoading={isLoading} cartTotal={cartTotal}></CartInFo>
+                        <div className="go-checkout">
+                            <Button btnType="yellow" type="primary">Checkout</Button>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={24}>
+                        <h2>Blogs</h2>
+                        <Blogs></Blogs>
+                    </Col>
+                </Row>
+            </CartPageStyle>   
+        </CartContext.Provider>
+    </>
+    
 }
 
-export {CartContext}
+export { CartContext }

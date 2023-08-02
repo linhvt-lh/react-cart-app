@@ -1,5 +1,5 @@
-import { ConfigProvider, Row, Col, Empty } from "antd";
-import React, { createContext, useEffect, useState } from 'react';
+import { Row, Col  } from "antd";
+import React, { useEffect, useState } from 'react';
 import Navigation from "../layout/Navigation.jsx";
 import Products from '../component/ProductList/Products.jsx';
 import Promotion from '../component/Promotion/Promotion.jsx';
@@ -7,16 +7,34 @@ import CartInFo from '../component/CartInfo/CartInfo.jsx';
 import Button from '../component/Button/Button.jsx';
 import Blogs from '../component/Blogs/Blogs.jsx';
 import { CartPageStyle } from './styled.jsx';
-
-
-const CartContext = createContext(0);
+import { useSelector } from "react-redux";
 
 
 export default function CartPage(){
 
     const shipCost = 30;
+    // sample test data
+    const promotionsOriginal = [
+        {
+            code : 'HOLIDAY',
+            discount : 20,
+            used : false
+        },
+        {
+            code : 'HAPPY',
+            discount : 20,
+            used : false
+        },
+        {
+            code : 'CHECK',
+            discount : 20,
+            used : false
+        },
+    ];
+
+    const cartItems = useSelector(state => state.cart.items);
+    const [productData, setProductData] = useState(cartItems);
     const [cartTotal, setCartTotal] = useState(0);
-    const [productData, setProductData] = useState(productDataSaved);
     const [promotionsData, setPromotionsData] = useState(promotionsOriginal);
     const [promotions, setPromotion] = useState({
         code : '',
@@ -25,7 +43,7 @@ export default function CartPage(){
     
     // change quantity
     function handleChangeQuantity(pId, qty){
-        const newProductData = productData.map((product)=>{
+        const newProductData = productData.map((product) => {
             if(product.id === pId){
                 product.qty = qty;
             }
@@ -87,32 +105,28 @@ export default function CartPage(){
     const isLoading = cartTotal === 0;
 
     return <>
-        <CartContext.Provider value={cartTotal}>
-            <Navigation />
-            <CartPageStyle>
-                <Row gutter={48}>
-                    <Col span={16}>
-                        <h2>Product List</h2>
-                        <Products productsData={productData} quantityChange={handleChangeQuantity}></Products>
-                    </Col>
-                    <Col span={8}>
-                        <Promotion onClick={promotionSubmit} promotions={promotions} ></Promotion>
-                        <CartInFo promotions={promotions} isLoading={isLoading} cartTotal={cartTotal}></CartInFo>
-                        <div className="go-checkout">
-                            <Button btnType="yellow" type="primary">Checkout</Button>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={24}>
-                        <h2>Blogs</h2>
-                        <Blogs></Blogs>
-                    </Col>
-                </Row>
-            </CartPageStyle>   
-        </CartContext.Provider>
+        <Navigation />
+        <CartPageStyle>
+            <Row gutter={48}>
+                <Col span={16}>
+                    <h2>Product List</h2>
+                    <Products productsData={productData} quantityChange={handleChangeQuantity}></Products>
+                </Col>
+                <Col span={8}>
+                    <Promotion onClick={promotionSubmit} promotions={promotions} ></Promotion>
+                    <CartInFo promotions={promotions} isLoading={isLoading} cartTotal={cartTotal}></CartInFo>
+                    <div className="go-checkout">
+                        <Button btnType="yellow" type="primary">Checkout</Button>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <h2>Blogs</h2>
+                    <Blogs></Blogs>
+                </Col>
+            </Row>
+        </CartPageStyle>   
     </>
     
 }
-
-export { CartContext }

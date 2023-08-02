@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { Row, Col } from 'antd';
 import { CartInfoStyle } from './styled.jsx';
-import { CartContext } from '../../page/Cart.jsx';
+
 
 
 export default function CartInfo({isLoading, promotions}){
 
-    const cartTotal = useContext(CartContext);
+    const cartTotal = 0;
 
     return <CartInfoStyle>
         <div className={`shipping-info ${isLoading ? 'loading' : ' '}`}>

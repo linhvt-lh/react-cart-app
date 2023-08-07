@@ -39,7 +39,7 @@ export default function Products(){
                             <Card title={product.name}>
                                 <Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />
                                 <p>{product.price}$</p>
-                                <Button onClick={() => dispatch(addToCart(product))}>Add To Cart</Button>
+                                <Button  onClick={() => dispatch(addToCart(product))}>Add To Cart</Button>
                             </Card>
                         </Col>
                     })}

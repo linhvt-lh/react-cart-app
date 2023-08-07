@@ -7,4 +7,7 @@ export const CartPageStyle = Style.div`
         align-items: center;
         justify-content: center;
     }
+    .update-cart-btn{
+        margin-top : 30px;
+    }
 `

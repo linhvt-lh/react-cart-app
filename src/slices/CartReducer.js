@@ -5,7 +5,8 @@ export const CartSlice = createSlice({
     name: "cartSlice",
     initialState : {
         items:localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) :  [],
-        totalPrice:0
+        totalPrice:0,
+        isRemovingItem: false,
     },
     reducers:{
         addToCart: (state, action) => {
@@ -14,7 +15,7 @@ export const CartSlice = createSlice({
             const existIndex = state.items.findIndex((item) => {
                 return item.id === productID;
             });
-            if(existIndex >= 0){
+            if( existIndex >= 0 ){
                 state.items[existIndex] = {
                     id: productID,
                     quantity: state.items[existIndex].quantity + 1,
@@ -28,9 +29,28 @@ export const CartSlice = createSlice({
                 position: "bottom-left",
             });
             localStorage.setItem("cartData", JSON.stringify(state.items));
-        }
+
+        },
+        removeCartItem: (state, action) => {
+            state.isRemovingItem = true;
+            const productId= action.payload;
+            const newCartItem = state.items.filter((item) => {
+                if(item.id != productId){
+                    return item;
+                }
+            });
+            state.items = newCartItem;
+            toast.info("Remove product from cart succesfully!", {
+                position: "bottom-left",
+            });
+            localStorage.setItem("cartData", JSON.stringify(state.items));
+        },
     }
 });
 
-export const { addToCart } = CartSlice.actions;
+export const { addToCart, removeCartItem } = CartSlice.actions;
 export default CartSlice.reducer;
+
+const RemoveLisner = (state, items) => {
+    sendSocket(items);
+}, CartSlice.removeCartItem;

@@ -1,6 +1,6 @@
 import { Row, Col  } from "antd";
 import React, { useEffect, useState } from 'react';
-import Navigation from "../layout/Navigation.jsx";
+import CustomHeader from '../layout/Header.jsx';
 import Products from '../component/ProductList/Products.jsx';
 import Promotion from '../component/Promotion/Promotion.jsx';
 import CartInFo from '../component/CartInfo/CartInfo.jsx';
@@ -8,7 +8,7 @@ import Button from '../component/Button/Button.jsx';
 import Blogs from '../component/Blogs/Blogs.jsx';
 import { CartPageStyle } from './styled.jsx';
 import { useSelector } from "react-redux";
-
+import CartItem from '../component/Cart/CartItems.jsx';
 
 export default function CartPage(){
 
@@ -33,7 +33,8 @@ export default function CartPage(){
     ];
 
     const cartItems = useSelector(state => state.cart.items);
-    const [productData, setProductData] = useState(cartItems);
+    // const [cartItems, setcartItems] = useSelector( (state) => state.cart.items);
+    console.log(cartItems);
     const [cartTotal, setCartTotal] = useState(0);
     const [promotionsData, setPromotionsData] = useState(promotionsOriginal);
     const [promotions, setPromotion] = useState({
@@ -43,13 +44,13 @@ export default function CartPage(){
     
     // change quantity
     function handleChangeQuantity(pId, qty){
-        const newProductData = productData.map((product) => {
+        const newcartItems = cartItems.map((product) => {
             if(product.id === pId){
                 product.qty = qty;
             }
             return product;
         });
-        setProductData(newProductData);
+        setcartItems(newcartItems);
     }
 
     //change promotion
@@ -71,6 +72,10 @@ export default function CartPage(){
         }
     }
 
+    function handleRemoveItem(){
+
+    }
+
     // fetch data
     function fetchApiDataAction(url, successAction, method = 'GET'){
         fetch(url, {
@@ -90,7 +95,7 @@ export default function CartPage(){
     //calculate cart total
     useEffect(() => {
         let total = shipCost ? shipCost : 0;
-        for(let product of productData){
+        for(let product of cartItems){
             total += (product.price) * product.qty;
         }
         if(promotions.discount > 0){
@@ -98,19 +103,20 @@ export default function CartPage(){
         }
         setCartTotal(total);
         
-    }, [productData, promotions]);
+    }, [cartItems, promotions]);
 
 
     //cart loading
     const isLoading = cartTotal === 0;
 
     return <>
-        <Navigation />
+        <CustomHeader />
         <CartPageStyle>
             <Row gutter={48}>
                 <Col span={16}>
-                    <h2>Product List</h2>
-                    <Products productsData={productData} quantityChange={handleChangeQuantity}></Products>
+                    <h2>Products</h2>
+                    <CartItem products={cartItems} quantityChange={handleChangeQuantity}  removeItem={handleRemoveItem}></CartItem>
+                    <Button className="update-cart-btn" type="primary" disabled>Update</Button>
                 </Col>
                 <Col span={8}>
                     <Promotion onClick={promotionSubmit} promotions={promotions} ></Promotion>
@@ -118,12 +124,6 @@ export default function CartPage(){
                     <div className="go-checkout">
                         <Button btnType="yellow" type="primary">Checkout</Button>
                     </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col span={24}>
-                    <h2>Blogs</h2>
-                    <Blogs></Blogs>
                 </Col>
             </Row>
         </CartPageStyle>   

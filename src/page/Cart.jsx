@@ -5,7 +5,6 @@ import Products from '../component/ProductList/Products.jsx';
 import Promotion from '../component/Promotion/Promotion.jsx';
 import CartInFo from '../component/CartInfo/CartInfo.jsx';
 import Button from '../component/Button/Button.jsx';
-import Blogs from '../component/Blogs/Blogs.jsx';
 import { CartPageStyle } from './styled.jsx';
 import { useSelector } from "react-redux";
 import CartItem from '../component/Cart/CartItems.jsx';
@@ -33,8 +32,6 @@ export default function CartPage(){
     ];
 
     const cartItems = useSelector(state => state.cart.items);
-    // const [cartItems, setcartItems] = useSelector( (state) => state.cart.items);
-    console.log(cartItems);
     const [cartTotal, setCartTotal] = useState(0);
     const [promotionsData, setPromotionsData] = useState(promotionsOriginal);
     const [promotions, setPromotion] = useState({
@@ -105,6 +102,7 @@ export default function CartPage(){
         
     }, [cartItems, promotions]);
 
+    
 
     //cart loading
     const isLoading = cartTotal === 0;

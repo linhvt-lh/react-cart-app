@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Blog Single Test snapshot testing 1`] = `
+<DocumentFragment>
+  <h1>
+    This is Blog Single Page
+  </h1>
+  <h2
+    data-testid="loading"
+  >
+    Loading...
+  </h2>
+</DocumentFragment>
+`;

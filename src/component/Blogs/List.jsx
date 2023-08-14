@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BlogStyle } from './styled.js';
 import { Input, Button } from "antd";
 
-export default function BlogsCom(){
+export default function List(){
     const apiBaseUrl = 'https://jsonplaceholder.typicode.com/';
     const [editId, setEditId] = useState(0);
     const editInput = useRef("");
@@ -83,7 +83,7 @@ export default function BlogsCom(){
             }
         })
     }
-
+    console.log('blogs', blogs);
     return <BlogStyle>
         <Button onClick={showAddingForm}>+Add More</Button>
         { formAddStatus == true && 

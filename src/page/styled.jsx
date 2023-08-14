@@ -11,3 +11,15 @@ export const CartPageStyle = Style.div`
         margin-top : 30px;
     }
 `
+export const BlogPageStyle = Style.div`
+    .blog-nav a{
+        padding: 10px 25px;
+        background-color: #00bbff;
+        color: #fff;
+        border-radius: 5px;
+        margin: 0 10px;
+    }
+    .page-heading{
+        margin-bottom:50px;
+    }
+`

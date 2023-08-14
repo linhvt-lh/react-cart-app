@@ -1,14 +1,14 @@
 import Styled from 'styled-components';
 import { Button } from 'antd';
 
-const btnType  = (btnType) =>{
-    if(btnType === 'black'){
+const btntype  = (btntype) =>{
+    if(btntype === 'black'){
         return `
             background-color: black;
             color: #fff;
         `
     }
-    if(btnType === 'yellow'){
+    if(btntype === 'yellow'){
         return `
             background-color: #FF5722;
             color: #fff;
@@ -16,6 +16,6 @@ const btnType  = (btnType) =>{
     }
 }
 const ButtonStyled = Styled(Button)`
-    ${(props) => props.btnType && btnType(props.btnType)};
+    ${(props) => props.btntype && btntype(props.btntype)};
 `
 export {ButtonStyled}

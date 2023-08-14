@@ -41,5 +41,4 @@ export default function CustomHeader() {
         </Header>
       </HeaderStyle>
     </>
-   
 }

@@ -1,7 +1,7 @@
 import React from "react";
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout } from 'antd';
 import CustomHeader from '../../layout/Header.jsx';
-import {HomeWrapperStyle} from './styled.js';
+import { HomeWrapperStyle } from './styled.js';
 const { Content, Footer } = Layout;
 
 //component
